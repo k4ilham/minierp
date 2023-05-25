@@ -1,0 +1,13 @@
+Emp No.;AC-No.;No.;Name;Auto-Assign;Date;Timetable;On duty;Off duty;Clock In;Clock Out;Normal;Real time;Late;Early;Absent;OT Time;Work Time;Exception;Must C/In;Must C/Out;Department;NDays;WeekEnd;Holiday;ATT_Time;NDays_OT;WeekEnd_OT;Holiday_OT
+761;1001;1001;Ilham Maulana;;2021-06-04;Office 1;8:00;17:00;7:37;17:14;1;5;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:37;;;
+761;1001;1001;Ilham Maulana;;2021-06-05;Office 1;8:00;17:00;7:37;17:14;1;5;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:37;;;
+761;1001;1001;Ilham Maulana;;2021-06-06;Japan (A) Sabtu;8:00;13:00;7:39;13:20;1;6;;;;;5:00;;TRUE;TRUE;1. General;;1;;5:40;;;
+761;1001;1001;Ilham Maulana;;2021-06-07;Office 1;8:00;17:00;7:40;17:32;1;7;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:52;;;
+761;1001;1001;Ilham Maulana;;2021-06-08;Office 1;8:00;17:00;7:44;17:06;1;8;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:21;;;
+761;1001;1001;Ilham Maulana;;2021-06-09;Office 1;8:00;17:00;7:37;17:14;1;5;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:37;;;
+761;1001;1001;Ilham Maulana;;2021-06-10;Office 1;8:00;17:00;7:37;17:14;1;5;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:37;;;
+761;1001;1001;Ilham Maulana;;2021-06-11;Japan (A) Sabtu;8:00;13:00;7:39;13:20;1;6;;;;;5:00;;TRUE;TRUE;1. General;;1;;5:40;;;
+761;1001;1001;Ilham Maulana;;2021-06-12;Office 1;8:00;17:00;7:40;17:32;1;7;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:52;;;
+761;1001;1001;Ilham Maulana;;2021-06-13;Office 1;8:00;17:00;7:44;17:06;1;8;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:21;;;
+761;1001;1001;Ilham Maulana;;2021-06-14;Office 1;8:00;17:00;7:37;17:14;1;5;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:37;;;
+761;1001;1001;Ilham Maulana;;2021-06-15;Office 1;8:00;17:00;7:37;17:14;1;5;;;;;9:00;;TRUE;TRUE;1. General;1;;;9:37;;;

@@ -1,0 +1,101 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+
+$this->title = 'Master Product Category';
+$this->params['breadcrumbs'][] = $this->title;
+
+$js = <<<js
+	$('#mytable').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      "lengthMenu": [ [-1, 25, 50, 100, 500, 100, -1],["All", 25, 50, 100, 500, 1000, "All"] ],
+    })
+
+    $("#myModal").on("shown.bs.modal", function (event) {
+        var button = $(event.relatedTarget)
+        var href = button.attr("href")
+        $.pjax.reload("#pjax-modal",{
+            "timeout":false,
+            "url": href, 
+            "replace": false,
+        });
+    })
+
+js;
+$this->registerJs($js);
+
+?>
+
+<div class="box box-primary box-solid">
+    <div class="box-header with-border">
+ 
+        <?= Html::a('Tambah Product Category', ['create'],[
+                            'class' => 'btn btn-default',
+                            'data-toggle'=>"modal",
+                            'data-target'=>"#myModal",
+                        ]); ?>
+
+      <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+      </div>
+    </div>
+    <div class="box-body">
+        <table class='table table-striped table-hover table-bordered' id='mytable'>
+        <thead>
+            <tr>
+            <th width="5%" align="center">Menu</th>
+            <th width="5%" align="center">No</th>
+            <th width="5%" align="center">Photo</th>
+            <th align="center">Product Category</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+        <?php 
+        $no=1;
+        foreach($model as $row){ ?>
+            <tr>
+                <td align="center">
+                    <?=Html::a("...", ['view', 'id' => $row->id_product_category], ['class' => 'btn btn-primary btn-xs','data-toggle'=>"modal",
+                                'data-target'=>"#myModal",])?>
+                </td>
+                <td align="center"><?=$no?></td>
+                <td align="center">
+                    <?=Html::img(Url::base(true).'/file/uploads/product_category/'.$row->photo,[
+                        'class'=>'img-thumbnail','style'=>'float:right;','height'=>50,'width'=>50
+                    ])?>
+                </td>
+                <td align="left"><?=$row->product_category?></td>
+                
+            </tr>
+        <?php $no++; } ?>
+        </tbody>
+        </table>
+    </div>
+</div>
+
+<?php
+    Modal::begin([
+        'id' => 'myModal',
+    ]);
+        Pjax::begin([
+            'id'=>'pjax-modal','timeout'=>false,
+            'enablePushState'=>false,
+            'enableReplaceState'=>false,
+        ]);
+        Pjax::end();
+    Modal::end();
+?>
+
+
+
