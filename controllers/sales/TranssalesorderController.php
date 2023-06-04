@@ -4,9 +4,12 @@ namespace app\controllers\sales;
 
 use Yii;
 use app\models\sales\TransSalesOrderHeader;
+use app\models\sales\TransSalesOrderDetail;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 class TranssalesorderController extends Controller
 {
@@ -49,9 +52,79 @@ class TranssalesorderController extends Controller
     public function actionView($id)
     {
         Yii::$app->helperdb->saveLog(json_encode($this->findModel($id)->getAttributes()));
+
+        $detail = TransSalesOrderDetail::find()
+        ->where(['id_sales_order_header' => $id])
+        ->all();
         
         return $this->renderAjax('view', [
             'model' => $this->findModel($id),
+            'detail' => $detail, 
+            'id' => $id, 
+        ]);
+    }
+
+    public function actionDetail($id)
+    {
+        $detail = TransSalesOrderDetail::find()
+        ->where(['id_sales_order_header' => $id])
+        ->all();
+
+        return $this->render('detail', [
+            'model' => $this->findModel($id), 
+            'detail' => $detail, 
+            'id' => $id, 
+        ]);
+    }
+
+    public function actionDetailadd($id)
+    {
+        $model = new TransSalesOrderDetail();
+
+        $listProduct = Yii::$app->helperdb->listProduct();
+        $listKaryawan = Yii::$app->helperdb->listKaryawan();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $post = Yii::$app->request->post()['TransSalesOrderDetail'];
+            $id_product = $post['id_product'];
+            $qty = $post['qty'];
+            $price = $post['price'];
+
+            $cari = TransSalesOrderDetail::find()
+            ->where(['id_sales_order_header' => $id])
+            ->andWhere(['id_product' => $id_product])
+            ->one();
+
+            if($cari){
+                $qty=$cari->qty+$qty;
+                $subtotal=$qty * $price;
+
+                $cari->qty = $qty;
+                $cari->price = $price;
+                $cari->subtotal = $subtotal;
+                $cari->save(false);
+            }else{
+                $subtotal=$qty * $price;
+    
+                $model->id_sales_order_header = $id;
+                $model->qty = $qty;
+                $model->price = $price;
+                $model->subtotal = $subtotal;
+                $model->save(false);
+            }
+
+
+
+            Yii::$app->helperdb->saveLog(json_encode($model->getAttributes()));
+
+            $url = Url::base(true) . "/sales/transsalesorder/detail?id=".$id;
+            return $this->redirect($url);
+        }
+
+        return $this->renderAjax('detailadd', [
+            'model' => $model,
+            'listProduct' => $listProduct,
+            'listKaryawan' => $listKaryawan,
         ]);
     }
 

@@ -1552,6 +1552,18 @@ class Helperdb extends Component
         return $list;
     }
 
+    // mendapatkan product 
+    public function listProduct(){
+        $kar = MasterProduct::find()->select('id_product,nama_product')
+        ->where(['aktif' => 1])
+        ->orderBy('nama_product ASC')
+        ->all();
+		$list = ArrayHelper::map($kar,'id_product',function($model, $defaultValue) {
+            return $model['nama_product'];
+        });
+        return $list;
+    }
+
     // mendapatkan getProductCategoryName
     public function getProductCategoryName($id){
         $r = MasterProductCategory::find()->where(['id_product_category' => $id])->one();
@@ -1654,7 +1666,7 @@ class Helperdb extends Component
             $r = "OPEN";
         }else if($id==1){
             $r = "COMPLETE";
-        }else if($id==2){
+        }else if($id==2){ 
             $r = "VOID";
         }
         return $r;
@@ -1671,6 +1683,23 @@ class Helperdb extends Component
         }
         return $r;
      }
+
+     // mendapatkan rekap lembur periode
+    public function sumTotalSalesOrder($id_sales_order_header,$field){
+        $total=0;
+        $query="SELECT SUM($field)AS total
+        FROM trans_sales_order_detail d
+        WHERE d.id_sales_order_header='$id_sales_order_header'
+        LIMIT 1";
+        $row = Yii::$app->db->createCommand($query)->queryOne();
+
+       if($row){
+            $total = $row['total'];
+       }
+
+        return $total;
+        
+    }
 
 
 			

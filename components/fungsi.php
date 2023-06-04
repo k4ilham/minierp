@@ -410,5 +410,11 @@ class Fungsi extends Component
 		}
 		return $nama; 
 	}
+
+	//menampilkan Hari
+	public function formatUang($nilai){
+		$r = number_format($nilai,2);
+		return $r; 
+	}
 					
 }
