@@ -96,6 +96,7 @@ class TranssalesorderController extends Controller
     {
         $model = $this->findModel($id);
         $listCustomer = Yii::$app->helperdb->listCustomer();
+        $listKaryawan = Yii::$app->helperdb->listKaryawan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -108,6 +109,37 @@ class TranssalesorderController extends Controller
             'listCustomer' => $listCustomer,
             'listKaryawan' => $listKaryawan,
         ]);
+    }
+
+    public function actionStatusOpen($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 0;
+        $model->posting_date = null;
+        $model->save(false);
+        Yii::$app->helperdb->saveLog(json_encode($model->getAttributes()));
+        return $this->redirect(['index']);
+    }
+
+    public function actionStatusComplete($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 1;
+        $model->posting_date = date("Y-m-d H:i:s");
+        $model->save(false);
+        Yii::$app->helperdb->saveLog(json_encode($model->getAttributes()));
+        return $this->redirect(['index']);
+    }
+
+
+    public function actionStatusVoid($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 2;
+        $model->posting_date = date("Y-m-d H:i:s");
+        $model->save(false);
+        Yii::$app->helperdb->saveLog(json_encode($model->getAttributes()));
+        return $this->redirect(['index']);
     }
 
     /**

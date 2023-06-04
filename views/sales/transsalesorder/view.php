@@ -21,7 +21,14 @@ $this->params['breadcrumbs'][] = $this->title;
     'model' => $model,
     'attributes' => [
         'kode_sales_order', 
-        'status',
+        [
+            'attribute' => 'status',
+            'format' => 'html',
+            'value' => function ($model) {
+                return Yii::$app->helperdb->getStatus($model->status);
+
+            },
+        ],
         [
             'attribute' => 'id_customer',
             'format' => 'html',
@@ -65,14 +72,43 @@ $this->params['breadcrumbs'][] = $this->title;
  
 
 <p>
+    <?php if($model->status==0){ ?>
         <?= Html::a('Update', ['update', 'id' => $model->id_sales_order_header], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_sales_order_header], [
-            'class' => 'btn btn-danger',
+
+        <?= Html::a('Complete', ['status-complete', 'id' => $model->id_sales_order_header], [
+            'class' => 'btn btn-success',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Are you sure you want to complete this item?',
                 'method' => 'post',
             ],
         ]) ?>
+
+        <?= Html::a('Void', ['status-void', 'id' => $model->id_sales_order_header], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to void this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
+
+    <?php }else if($model->status==1){ ?>
+        <?= Html::a('Void', ['status-void', 'id' => $model->id_sales_order_header], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to void this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    <?php }else if($model->status==2){ ?>
+        <?= Html::a('Open', ['status-open', 'id' => $model->id_sales_order_header], [
+            'class' => 'btn btn-primary',
+            'data' => [
+                'confirm' => 'Are you sure you want to open this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    <?php } ?>
+
     </p>
 
 <p align="right">

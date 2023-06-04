@@ -7,7 +7,7 @@ $this->title = 'Create Sales Order';
 $this->params['breadcrumbs'][] = ['label' => 'Sales Order', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="master-product-create">
+<div class="master-trans-sales-order-header-create">
 
 
     <?= $this->render('_form', [

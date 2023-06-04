@@ -70,23 +70,25 @@ $this->registerJs($js);
         <?php 
         $no=1;
         foreach($model as $row){ 
+              $status = Yii::$app->helperdb->getStatus($row->status);
+              $color_status = Yii::$app->helperdb->getStatusColor($row->status);
               $nama_customer = Yii::$app->helperdb->getField("master_customer","id_customer","nama_customer",$row->id_customer);
               $sales_person = Yii::$app->helperdb->getField("master_karyawan","id_karyawan","nama_karyawan",$row->sales_person_code);
             ?>
             <tr>
-                <td align="center">
+                <td bgcolor="<?=$color_status?>" align="center">
                     <?=Html::a("...", ['view', 'id' => $row->id_sales_order_header], ['class' => 'btn btn-primary btn-xs','data-toggle'=>"modal",
                                 'data-target'=>"#myModal",])?>
                 </td>
-                <td align="center"><?=$no?></td>
-                <td align="center"><?=$row->kode_sales_order?></td>
-                <td align="center"><?=$row->status?></td>
-                <td align="left"><?=$nama_customer?></td>
-                <td align="left"><?=$sales_person?></td>
+                <td bgcolor="<?=$color_status?>" align="center"><?=$no?></td>
+                <td bgcolor="<?=$color_status?>" align="center"><?=$row->kode_sales_order?></td>
+                <td bgcolor="<?=$color_status?>" align="center"><?=$status?></td>
+                <td bgcolor="<?=$color_status?>" align="left"><?=$nama_customer?></td>
+                <td bgcolor="<?=$color_status?>" align="left"><?=$sales_person?></td>
 
-                <td align="left"><?=$row->ext_doc_no?></td>             
-                <td align="center"><?=$row->order_date?></td>
-                <td align="center"><?=$row->document_date?></td>
+                <td bgcolor="<?=$color_status?>" align="left"><?=$row->ext_doc_no?></td>             
+                <td bgcolor="<?=$color_status?>" align="center"><?=$row->order_date?></td>
+                <td bgcolor="<?=$color_status?>" align="center"><?=$row->document_date?></td>
                 
             </tr>
         <?php $no++; } ?>

@@ -1647,6 +1647,31 @@ class Helperdb extends Component
         return $kode;
      }
 
+     // mendapatkan aktif
+    public function getStatus($id){
+        $r = "";
+        if($id==0){
+            $r = "OPEN";
+        }else if($id==1){
+            $r = "COMPLETE";
+        }else if($id==2){
+            $r = "VOID";
+        }
+        return $r;
+     }
+
+     public function getStatusColor($id){
+        $r = "";
+        if($id==0){
+            $r = "#FFFACD";
+        }else if($id==1){
+            $r = "";
+        }else if($id==2){
+            $r = "#F98B88";
+        }
+        return $r;
+     }
+
 
 			
 }
